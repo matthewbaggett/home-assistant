@@ -1,0 +1,123 @@
+- id: '1628010625525'
+  alias: Everyone is gone
+  trigger:
+    platform: state
+    entity_id: group.all_persons
+    to: 'not_home'
+  action:
+    - service: script.everyone_has_gone
+- id: '1628010625524'
+  alias: Someone is home
+  trigger:
+    platform: state
+    entity_id: group.all_persons
+    to: 'home'
+  action:
+    - service: script.someone_has_returned_home
+- id: '1628010625526'
+  alias: Turn on printer lighting based on printer_printing counter
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: counter.printers_active
+    above: '0'
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.solkint
+    data:
+      brightness_step_pct: 100
+      color_temp: 370
+      transition: 5
+  mode: single
+- id: '1628010625527'
+  alias: Turn off printer lighting based on printer_printing counter
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: counter.printers_active
+    below: '1'
+  condition: []
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.solkint
+  mode: single
+- id: '1628011484678'
+  alias: Turn off bedroom fan if office fan on
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 58d69f2d6826f9581e76ac4b3af411f4
+    entity_id: switch.office_fan
+    domain: switch
+  condition:
+  - condition: device
+    type: is_on
+    device_id: b6afae3765458b254794d52665ae01ca
+    entity_id: switch.matt_s_bedroom_fan
+    domain: switch
+  action:
+  - type: turn_off
+    device_id: b6afae3765458b254794d52665ae01ca
+    entity_id: switch.matt_s_bedroom_fan
+    domain: switch
+  mode: single
+- id: '1628011484679'
+  alias: Turn off office fan if bedroom fan on
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: b6afae3765458b254794d52665ae01ca
+    entity_id: switch.matt_s_bedroom_fan
+    domain: switch
+  condition:
+  - condition: device
+    type: is_on
+    device_id: 58d69f2d6826f9581e76ac4b3af411f4
+    entity_id: switch.office_fan
+    domain: switch
+  action:
+  - type: turn_off
+    device_id: 58d69f2d6826f9581e76ac4b3af411f4
+    entity_id: switch.office_fan
+    domain: switch
+  mode: single
+- id: '1628012912921'
+  alias: Everyone is gone
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: person.matthew_baggett
+    to: Away
+  - platform: state
+    entity_id: person.skylar
+    to: Away
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: person.matthew_baggett
+      state: Away
+    - condition: state
+      entity_id: person.skylar
+      state: Away
+  action: []
+  mode: single
+- id: '1628016296822'
+  alias: Force dummy light on
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: '5'
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.flux_dummy
+    data:
+      brightness_pct: 100
+  mode: single

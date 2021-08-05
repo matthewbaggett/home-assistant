@@ -1,0 +1,74 @@
+all_persons:
+  name: "People"
+  entities:
+   - person.matthew_baggett
+   - person.skylar
+   
+hall_ceiling_lights:
+  name: "Hall Lights"
+  entities:
+   - light.hallway_a
+   - light.hallway_b
+   - light.front_door_a
+   - light.front_door_b
+
+kitchen_ceiling_lights:
+  name: "Kitchen Lights"
+  entities:
+   - light.kitchen_a
+   - light.kitchen_b
+   
+livingroom_ceiling_lights:
+  name: "Living Room Lights"
+  entities:
+   - light.living_room_a
+   - light.living_room_b
+   - light.living_room_c
+   - light.living_room_d
+   
+living_space_all_lights:
+  name: "Living Space"
+  entities: 
+   - group.livingroom_ceiling_lights
+   - group.kitchen_ceiling_lights
+   - group.lamp_vidja
+   - light.solkint
+   - light.searchlight
+   - group.lamp_balls
+   - group.matts_desk
+   
+lamp_vidja:
+  name: "Vidja Lamp"
+  entities:
+   - light.vidja_6
+   - light.vidja_5
+   - light.vidja_4
+   - light.vidja_3
+   - light.vidja_2
+   - light.vidja_1
+   
+lamp_balls:
+  name: "Balls Lamp"
+  entities:
+   - light.ball_superior
+   - light.ball_lesser
+   
+matts_desk:
+  name: "Matts Desk"
+  entities: 
+   - light.square_desk_lamp
+   - switch.office_fan
+   
+matts_bedroom:
+  name: "Matts Bedroom"
+  entities:
+   - light.matt_s_bedroom_bulb_a
+   - light.matt_s_bedroom_bulb_b
+   - light.matt_s_bedroom_lamp
+   - switch.matt_s_bedroom_fan
+   
+skylars_bedroom:
+  name: "Skylars Bedroom"
+  entities:
+   - light.skylar_a
+   - light.skylar_b

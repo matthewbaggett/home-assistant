@@ -1,0 +1,8 @@
+- platform: template
+  lights:
+    flux_dummy:
+      friendly_name: "Dummy light for flux"
+      turn_on: 
+      turn_off:
+      set_level:
+      set_temperature:

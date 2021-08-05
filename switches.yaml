@@ -1,0 +1,14 @@
+  - platform: flux
+    lights:
+      - light.flux_dummy
+    name: Fluxer
+    start_time: "9:00"
+    stop_time: "20:00"
+    start_colortemp: 4000
+    sunset_colortemp: 2600
+    stop_colortemp: 1900
+    brightness: 200
+    disable_brightness_adjust: true
+    mode: mired
+    transition: 30
+    interval: 10

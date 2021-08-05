@@ -1,0 +1,24 @@
+
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+binary_sensor:
+  platform: template
+  sensors:
+    motion_in_hall:
+      friendly_name: "Motion In Hallway"
+      entity_id: light.hallway_a
+      value_template: '{{ is_state("light.hallway_a", "on") }}'
+      device_class: motion
+counter: !include counters.yaml
+switch: !include switches.yaml
+light: !include lights.yaml
