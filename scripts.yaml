@@ -2,10 +2,7 @@ everyone_has_gone:
   alias: Everyone has gone out!
   sequence:
   - service: script.all_lights_off
-  - device_id: 92074a5a1914b69d91dc4e375b201a11
-    domain: vacuum
-    entity_id: vacuum.robby_the_roomba
-    type: clean
+  - service: script.run_roomba
   mode: single
 someone_has_returned_home:
   alias: Someone has returned home!
@@ -16,7 +13,10 @@ someone_has_returned_home:
     type: dock
   - service: light.turn_on
     target:
-      entity_id: light.square_desk_lamp
+      entity_id:
+      - light.square_desk_lamp
+      - light.front_door_a
+      - light.front_door_b
   mode: single
 all_lights_off:
   alias: Turn all lights off
@@ -30,7 +30,7 @@ all_lights_off:
       - group.skylars_bedroom
       - group.hall_ceiling_lights
 vidja_gay_pride:
-  alias: ENGAGE GAY RAINBOWS
+  alias: 'Vidja: ENGAGE GAY RAINBOWS'
   sequence:
   - service: light.turn_on
     target:
@@ -86,8 +86,9 @@ vidja_gay_pride:
       - 7
       - 135
       brightness_pct: 100
+  mode: single
 vidja_trans_pride:
-  alias: ENGAGE TRANS PRIDE FLAG
+  alias: 'Vidja: ENGAGE TRANS PRIDE FLAG'
   sequence:
   - service: light.turn_on
     target:
@@ -139,6 +140,7 @@ vidja_trans_pride:
       - 195.059
       - 100
       brightness_pct: 100
+  mode: single
 qqs_1_power_on:
   alias: 'QQ-s #1 Power On'
   sequence:
@@ -300,4 +302,66 @@ qqs_2_power_off:
   - service: counter.decrement
     target:
       entity_id: counter.printers_active
+  mode: single
+run_roomba:
+  alias: Run Roomba
+  sequence:
+  - device_id: 92074a5a1914b69d91dc4e375b201a11
+    domain: vacuum
+    entity_id: vacuum.robby_the_roomba
+    type: clean
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.living_room_a
+      - light.living_room_b
+      - light.living_room_c
+      - light.living_room_d
+      - light.kitchen_a
+      - light.kitchen_b
+    data:
+      color_temp: 370
+      brightness_pct: 100
+  mode: single
+stop_roomba:
+  alias: Stop Roomba
+  sequence:
+  - device_id: 92074a5a1914b69d91dc4e375b201a11
+    domain: vacuum
+    entity_id: vacuum.robby_the_roomba
+    type: dock
+  - wait_for_trigger:
+    - platform: device
+      device_id: 92074a5a1914b69d91dc4e375b201a11
+      domain: vacuum
+      entity_id: vacuum.robby_the_roomba
+      type: docked
+  - service: light.turn_off
+    target:
+      entity_id:
+      - light.living_room_a
+      - light.living_room_b
+      - light.living_room_c
+      - light.living_room_d
+      - light.kitchen_a
+      - light.kitchen_b
+  mode: single
+red_alert:
+  alias: 'Vidja: Red Alert'
+  sequence:
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.vidja_1
+      - light.vidja_2
+      - light.vidja_3
+      - light.vidja_4
+      - light.vidja_5
+      - light.vidja_6
+    data:
+      brightness_pct: 100
+      rgb_color:
+      - 255
+      - 0
+      - 0
   mode: single
