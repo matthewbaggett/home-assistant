@@ -1,0 +1,269 @@
+- id: '1628010625525'
+  alias: Everyone is gone
+  trigger:
+    platform: state
+    entity_id: group.all_persons
+    to: not_home
+  action:
+  - service: script.everyone_has_gone
+- id: '1628010625524'
+  alias: Someone is home
+  trigger:
+    platform: state
+    entity_id: group.all_persons
+    to: home
+  action:
+  - service: script.someone_has_returned_home
+- id: '1628010625526'
+  alias: Turn on printer lighting based on printer_printing counter
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: counter.printers_active
+    above: '0'
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.solkint
+    data:
+      brightness_step_pct: 100
+      color_temp: 370
+      transition: 5
+  mode: single
+- id: '1628010625527'
+  alias: Turn off printer lighting based on printer_printing counter
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: counter.printers_active
+    below: '1'
+  condition: []
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.solkint
+  mode: single
+- id: '1628011484678'
+  alias: Turn off bedroom fan if office fan on
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 58d69f2d6826f9581e76ac4b3af411f4
+    entity_id: switch.office_fan
+    domain: switch
+  condition:
+  - condition: device
+    type: is_on
+    device_id: b6afae3765458b254794d52665ae01ca
+    entity_id: switch.matt_s_bedroom_fan
+    domain: switch
+  action:
+  - type: turn_off
+    device_id: b6afae3765458b254794d52665ae01ca
+    entity_id: switch.matt_s_bedroom_fan
+    domain: switch
+  mode: single
+- id: '1628011484679'
+  alias: Turn off office fan if bedroom fan on
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: b6afae3765458b254794d52665ae01ca
+    entity_id: switch.matt_s_bedroom_fan
+    domain: switch
+  condition:
+  - condition: device
+    type: is_on
+    device_id: 58d69f2d6826f9581e76ac4b3af411f4
+    entity_id: switch.office_fan
+    domain: switch
+  action:
+  - type: turn_off
+    device_id: 58d69f2d6826f9581e76ac4b3af411f4
+    entity_id: switch.office_fan
+    domain: switch
+  mode: single
+- id: '1628016296822'
+  alias: Force dummy light on
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: '5'
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.flux_dummy
+    data:
+      brightness_pct: 100
+  mode: single
+- id: '1628238154468'
+  alias: Desk Occupancy
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.desk_occupancy
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: b99eece67bb36b1e86828e5152086b44
+    entity_id: light.square_desk_lamp
+    domain: light
+  - type: turn_on
+    device_id: 58d69f2d6826f9581e76ac4b3af411f4
+    entity_id: switch.office_fan
+    domain: switch
+  mode: single
+- id: '1628238321859'
+  alias: Bedroom lights on white (Button 1 Click)
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: f7f7bff1c2c8a9c29bd5a573c7c03b01
+    type: action
+    subtype: single
+    discovery_id: 0x00158d0001ef6472 action_single
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.matt_s_bedroom_bulb_a
+      - light.matt_s_bedroom_bulb_b
+      - light.matt_s_bedroom_lamp
+    data:
+      transition: 5
+      brightness_pct: 75
+      color_temp: 370
+  mode: single
+- id: '1628238719251'
+  alias: Bedroom lights on red (Button 1 double-click)
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: f7f7bff1c2c8a9c29bd5a573c7c03b01
+    type: action
+    subtype: double
+    discovery_id: 0x00158d0001ef6472 action_double
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.matt_s_bedroom_bulb_a
+      - light.matt_s_bedroom_bulb_b
+      - light.matt_s_bedroom_lamp
+    data:
+      brightness_pct: 50
+      transition: 5
+      rgb_color:
+      - 255
+      - 0
+      - 0
+  mode: single
+- id: '1628239219167'
+  alias: Bedroom lights off (Button 1 press-n-hold)
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: f7f7bff1c2c8a9c29bd5a573c7c03b01
+    type: action
+    subtype: hold
+    discovery_id: 0x00158d0001ef6472 action_hold
+  condition: []
+  action:
+  - service: light.turn_off
+    target:
+      entity_id:
+      - light.matt_s_bedroom_bulb_a
+      - light.matt_s_bedroom_bulb_b
+      - light.matt_s_bedroom_lamp
+    data:
+      transition: 5
+  mode: single
+- id: '1628475708453'
+  alias: Matt's Bedroom Occupancy
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.bedroom_occupancy
+    to: 'on'
+    from: 'off'
+  condition: []
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.matt_s_bedroom_fan
+  mode: single
+- id: '1628475885334'
+  alias: Wake Matt Up
+  description: ''
+  trigger:
+  - platform: time
+    at: '8:55'
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.matt_s_bedroom_lamp
+    data:
+      transition: 30
+      color_temp: 370
+      brightness_step_pct: 100
+  mode: single
+- id: '1628495771395'
+  alias: Run Roomba
+  description: ''
+  trigger:
+  - platform: time
+    at: 05:00
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: script.run_roomba
+  - delay:
+      hours: 1
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - service: script.stop_roomba
+  mode: single
+- id: '1628496804106'
+  alias: Roomba Bin Warning
+  description: ''
+  trigger:
+  - type: turned_on
+    platform: device
+    device_id: 92074a5a1914b69d91dc4e375b201a11
+    entity_id: binary_sensor.robby_the_roomba_bin_full
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  condition: []
+  action:
+  - service: script.red_alert
+  mode: single

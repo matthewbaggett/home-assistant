@@ -1,0 +1,367 @@
+everyone_has_gone:
+  alias: Everyone has gone out!
+  sequence:
+  - service: script.all_lights_off
+  - service: script.run_roomba
+  mode: single
+someone_has_returned_home:
+  alias: Someone has returned home!
+  sequence:
+  - device_id: 92074a5a1914b69d91dc4e375b201a11
+    domain: vacuum
+    entity_id: vacuum.robby_the_roomba
+    type: dock
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.square_desk_lamp
+      - light.front_door_a
+      - light.front_door_b
+  mode: single
+all_lights_off:
+  alias: Turn all lights off
+  sequence:
+  - service: light.turn_off
+    target:
+      entity_id:
+      - group.living_space_all_lights
+      - group.matts_bedroom
+      - group.matts_desk
+      - group.skylars_bedroom
+      - group.hall_ceiling_lights
+vidja_gay_pride:
+  alias: 'Vidja: ENGAGE GAY RAINBOWS'
+  sequence:
+  - service: light.turn_on
+    target:
+      entity_id: light.vidja_6
+    data:
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      brightness_pct: 100
+  - service: light.turn_on
+    target:
+      entity_id: light.vidja_5
+    data:
+      rgb_color:
+      - 255
+      - 140
+      - 0
+      brightness_pct: 100
+  - service: light.turn_on
+    target:
+      entity_id: light.vidja_4
+    data:
+      rgb_color:
+      - 255
+      - 237
+      - 0
+      brightness_pct: 100
+  - service: light.turn_on
+    target:
+      entity_id: light.vidja_3
+    data:
+      rgb_color:
+      - 0
+      - 128
+      - 38
+      brightness_pct: 100
+  - service: light.turn_on
+    target:
+      entity_id: light.vidja_2
+    data:
+      rgb_color:
+      - 0
+      - 77
+      - 255
+      brightness_pct: 100
+  - service: light.turn_on
+    target:
+      entity_id: light.vidja_1
+    data:
+      rgb_color:
+      - 117
+      - 7
+      - 135
+      brightness_pct: 100
+  mode: single
+vidja_trans_pride:
+  alias: 'Vidja: ENGAGE TRANS PRIDE FLAG'
+  sequence:
+  - service: light.turn_on
+    target:
+      entity_id: light.vidja_6
+    data:
+      hs_color:
+      - 195.059
+      - 100
+      brightness_pct: 100
+  - service: light.turn_on
+    target:
+      entity_id: light.vidja_5
+    data:
+      hs_color:
+      - 315.059
+      - 100
+      brightness_pct: 100
+  - service: light.turn_on
+    target:
+      entity_id: light.vidja_4
+    data:
+      rgb_color:
+      - 255
+      - 255
+      - 255
+      brightness_pct: 100
+  - service: light.turn_on
+    target:
+      entity_id: light.vidja_3
+    data:
+      rgb_color:
+      - 255
+      - 255
+      - 255
+      brightness_pct: 100
+  - service: light.turn_on
+    target:
+      entity_id: light.vidja_2
+    data:
+      hs_color:
+      - 315.059
+      - 100
+      brightness_pct: 100
+  - service: light.turn_on
+    target:
+      entity_id: light.vidja_1
+    data:
+      hs_color:
+      - 195.059
+      - 100
+      brightness_pct: 100
+  mode: single
+qqs_1_power_on:
+  alias: 'QQ-s #1 Power On'
+  sequence:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.flsun_qq_s_1
+  - service: light.turn_on
+    target:
+      entity_id: light.ball_lesser
+    data:
+      transition: 5
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      brightness_pct: 10
+  - service: counter.increment
+    target:
+      entity_id: counter.printers_active
+  mode: single
+qqs_1_warmup:
+  alias: 'QQ-s #1 Warmup'
+  sequence:
+  - service: light.turn_on
+    target:
+      entity_id: light.ball_lesser
+    data:
+      transition: 5
+      rgb_color:
+      - 255
+      - 100
+      - 0
+      brightness_pct: 10
+  mode: single
+qqs_1_printing:
+  alias: 'QQ-s #1 Printing Underway'
+  sequence:
+  - service: light.turn_on
+    target:
+      entity_id: light.ball_lesser
+    data:
+      transition: 5
+      rgb_color:
+      - 255
+      - 185
+      - 0
+      brightness_pct: 10
+  mode: single
+qqs_1_finished:
+  alias: 'QQ-s #1 Printing Complete'
+  sequence:
+  - service: light.turn_on
+    target:
+      entity_id: light.ball_lesser
+    data:
+      transition: 5
+      rgb_color:
+      - 0
+      - 255
+      - 0
+      brightness_pct: 100
+  mode: single
+qqs_1_power_off:
+  alias: 'QQ-s #1 Power Off'
+  sequence:
+  - service: light.turn_on
+    target:
+      entity_id: light.ball_lesser
+    data:
+      transition: 5
+      brightness_pct: 0
+  - service: light.turn_off
+    target:
+      entity_id: light.ball_lesser
+  - service: counter.decrement
+    target:
+      entity_id: counter.printers_active
+  - service: switch.turn_off
+    target:
+      entity_id: switch.flsun_qq_s_1
+  mode: single
+qqs_2_power_on:
+  alias: 'QQ-s #2 Power On'
+  sequence:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.flsun_qq_s_2
+  - service: light.turn_on
+    target:
+      entity_id: light.ball_superior
+    data:
+      transition: 5
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      brightness_pct: 10
+  - service: counter.increment
+    target:
+      entity_id: counter.printers_active
+  mode: single
+qqs_2_warmup:
+  alias: 'QQ-s #2 Warmup'
+  sequence:
+  - service: light.turn_on
+    target:
+      entity_id: light.ball_superior
+    data:
+      transition: 5
+      rgb_color:
+      - 255
+      - 100
+      - 0
+      brightness_pct: 10
+  mode: single
+qqs_2_printing:
+  alias: 'QQ-s #2 Printing Underway'
+  sequence:
+  - service: light.turn_on
+    target:
+      entity_id: light.ball_superior
+    data:
+      transition: 5
+      rgb_color:
+      - 255
+      - 185
+      - 0
+      brightness_pct: 10
+  mode: single
+qqs_2_finished:
+  alias: 'QQ-s #2 Printing Complete'
+  sequence:
+  - service: light.turn_on
+    target:
+      entity_id: light.ball_superior
+    data:
+      transition: 5
+      rgb_color:
+      - 0
+      - 255
+      - 0
+      brightness_pct: 100
+  mode: single
+qqs_2_power_off:
+  alias: 'QQ-s #2 Power Off'
+  sequence:
+  - service: light.turn_on
+    target:
+      entity_id: light.ball_superior
+    data:
+      transition: 5
+      brightness_pct: 0
+  - service: light.turn_off
+    target:
+      entity_id: light.ball_superior
+  - service: switch.turn_off
+    target:
+      entity_id: switch.flsun_qq_s_2
+  - service: counter.decrement
+    target:
+      entity_id: counter.printers_active
+  mode: single
+run_roomba:
+  alias: Run Roomba
+  sequence:
+  - device_id: 92074a5a1914b69d91dc4e375b201a11
+    domain: vacuum
+    entity_id: vacuum.robby_the_roomba
+    type: clean
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.living_room_a
+      - light.living_room_b
+      - light.living_room_c
+      - light.living_room_d
+      - light.kitchen_a
+      - light.kitchen_b
+    data:
+      color_temp: 370
+      brightness_pct: 100
+  mode: single
+stop_roomba:
+  alias: Stop Roomba
+  sequence:
+  - device_id: 92074a5a1914b69d91dc4e375b201a11
+    domain: vacuum
+    entity_id: vacuum.robby_the_roomba
+    type: dock
+  - wait_for_trigger:
+    - platform: device
+      device_id: 92074a5a1914b69d91dc4e375b201a11
+      domain: vacuum
+      entity_id: vacuum.robby_the_roomba
+      type: docked
+  - service: light.turn_off
+    target:
+      entity_id:
+      - light.living_room_a
+      - light.living_room_b
+      - light.living_room_c
+      - light.living_room_d
+      - light.kitchen_a
+      - light.kitchen_b
+  mode: single
+red_alert:
+  alias: 'Vidja: Red Alert'
+  sequence:
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.vidja_1
+      - light.vidja_2
+      - light.vidja_3
+      - light.vidja_4
+      - light.vidja_5
+      - light.vidja_6
+    data:
+      brightness_pct: 100
+      rgb_color:
+      - 255
+      - 0
+      - 0
+  mode: single

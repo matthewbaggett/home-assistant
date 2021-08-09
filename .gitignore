@@ -1,0 +1,10 @@
+home-assistant_v2.*
+home-assistant.log
+.HA_VERSION
+image
+tts
+deps
+blueprints
+.storage
+.cloud
+.idea
